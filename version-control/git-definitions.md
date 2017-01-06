@@ -25,3 +25,5 @@ A **merge conflict** occurs when the difference between the branch version and t
 An explanation of merge conflicts can be found here: [Git Conflicts](http://imagej.net/Git_Conflicts)
 
 And [Here's](https://en.wikipedia.org/wiki/Merge_(version_control)#Manual_merging) Wikipedia's article on **manual merging** - what the user needs to do to respond to a merge conflict.
+
+Added this line to give a shout out to my Advisor, Tyler Keating.
