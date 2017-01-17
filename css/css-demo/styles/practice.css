@@ -1,0 +1,26 @@
+section#contact-info {
+  font-size: .8em;
+}
+
+.job {
+  background-color: #e9e5dc;
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+ul.accomplishments {
+  font-size: .8em;
+}
+
+h3:hover {
+  color: green;
+}
+
+section section {
+  color: red;
+}
+
+ul > li {
+  color: gray;
+}
