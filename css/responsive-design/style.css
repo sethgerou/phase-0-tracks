@@ -15,7 +15,7 @@ cite {
 }
 
 /* you're welcome to edit the
-image, figure, and figcaption CSS if you'd like, 
+image, figure, and figcaption CSS if you'd like,
 but it's optional! */
 img {
   width: 100%;
@@ -29,4 +29,8 @@ figure {
 figcaption {
   font-style: italic;
   text-align: right;
+}
+
+@media (max-width: 550px) {
+  body {background-color: gray; font-family: sans-serif;}
 }
