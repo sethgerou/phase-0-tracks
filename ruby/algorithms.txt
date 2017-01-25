@@ -1,0 +1,64 @@
+Using an Elevator:
+
+- Approach elevator
+- Locate 'up' and/or 'down' button(s). - there may only be 1.
+- Press the button for the desired direction.
+- Wait for doors to open.
+- Enter elevator
+- Look for array of buttons with numbers on them
+- if no information on desired floor number
+  - contact programmer via standard means
+  - if programmer is unreachable or has no input
+    - press door open button and exit elevator
+- otherwise - continue using input from programmer...
+- Press button with number corresponding to the desired floor - doors will close if they haven't already.
+- Wait
+- Elevator will have an illuminated number near the buttons or above the door
+  - watch for the number to match desired floor number
+  - doors will open when the number matches your desired floor number
+    -note: doors may open for numbers matching other users desired floor - Ignore.
+  - When the doors open, exit the elevator
+- Continue
+
+Turn on Shower:
+
+- enter bathroom
+- locate "tub" or "shower stall"
+  - will be located behind a glass wall or a curtain
+- enter tub/shower stall
+- locate water control handle(s) and follow instructions for handle type
+  - handle types:
+    - 2 separate handles - one "hot", one "cold"
+      - rotate both handles counter-clockwise about 1 turn.
+      - wait 20 seconds.
+      - is water too hot?
+        - if yes, rotate left handle (or labeled 'H') clockwise 1/4 turn.
+        -re-evaluate
+      - is water too cold?
+        - if yes, rotate right handle (or labeled 'C') counter-clockwise 1/4 turn.
+        - re-evaluate
+    - 1 handle - rotates
+        - rotate handle clockwise 1/4 turn.
+        - wait 20 seconds.
+          - is water too hot?
+            - if yes, rotate handle counter-clockwise 1/4 turn.
+            - re-evaluate
+          - is water too cold?
+            - if yes, rotate handle clockwise 1/4 turn.
+            - re-evaluate
+    - 1 handle - lifts up and pivots left or right
+        - lift handle straight up.
+        - wait 20 seconds.
+          - is water too hot?
+            - if yes, pivot handle right 10 degrees.
+            - re-evaluate
+          - is water too cold?
+            - if yes, pivot handle left 10 degrees.
+            - re-evaluate
+----------------
+(typical follow up algorithms)
+- shower (see showering algorithm)
+- turn off shower
+  - move handle in opposite direction of on directions - until it doesn't go any further
+  - if water has stopped, good job! you're done!
+  - if water has not stopped, re-read the directions and try again.
