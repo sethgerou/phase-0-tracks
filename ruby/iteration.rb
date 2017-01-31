@@ -1,5 +1,4 @@
-=begin
-#
+#METHOD TAKES A BLOCK
 def apple_collector
   apple_collector = 0
   puts "You have #{apple_collector} apples."
@@ -10,9 +9,10 @@ def apple_collector
 end
 
 apple_collector { |name1| puts "You have collected #{name1} apples." }
-=end
 
-#
+##################
+
+#.EACH AND .MAP! FOR ARRAY
 apples = ["fuji", "granny smith", "pink lady", "honeycrisp"]
 
 puts "This is the apples array before .each"
@@ -27,6 +27,7 @@ apples.map! { |fruit| fruit.upcase}
 puts "This is the apples array after .map!"
 p apples
 
+#.EACH AND .MAP FOR HASH
 vegetables = {
   carrot: "orange",
   lettuce: "green",
@@ -46,12 +47,13 @@ puts "This is the vegetable hash after .map"
 p vegetables
 p vegetables2
 
-=begin
-#method 1: delete if less than 5, ARRAY
+##################
+
+#METHOD 1: delete if less than 5, ARRAY
 integer_ary = [1,2,3,4,5,6,7,8,9,10]
 integer_ary.delete_if {|value| value < 5}
 
-#method 1: delete if less than 5, HASH
+#METHOD 1: delete if less than 5, HASH
 integer_hsh = {
   zero: 0,
   one: 1,
@@ -63,23 +65,20 @@ integer_hsh = {
 }
 integer_hsh.delete_if {|number, value| value < 5}
 
-#method 2: keep if less than 5, ARRAY
+#METHOD 2: keep if less than 5, ARRAY
 integer_ary.keep_if {|value| value < 5}
 
-#method 2: keep if less than 5, HASH
+#METHOD 2: keep if less than 5, HASH
 integer_hsh.keep_if {|number, value| value < 5}
 
-#method 3: find minimum value above 'value', ARRAY
+#METHOD 3: find minimum value above 'value', ARRAY
 integer_ary.bsearch {|value| value >= 1}
 
-#method 3: select hash entires that validate to true, HASH
+#METHOD 3: select hash entires that validate to true, HASH
 integer_hsh2 = integer_hsh.select {|number, value| value >= 1 }
 
-#method 4: drop elements until first element that validates to false, ARRAY
+#METHOD 4: drop elements until first element that validates to false, ARRAY
 integer_ary2 = integer_ary.drop_while {|value| value <= 6}
 
-#method 4: reject true values, and keep false values, does not stop at first false value, HASH
+#METHOD 4: reject true values, and keep false values, does not stop at first false value, HASH
 integer_hsh.reject! {|number, value| value.even? }
-
-
-=end
