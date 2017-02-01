@@ -54,3 +54,4 @@ puts "How many departments are in the 'other' category?"
 puts grocery_store[:other].count
 puts "\nWhat are their names?"
 grocery_store[:other].each_key {|p| puts p.capitalize}
+puts "\n", "-"*30
