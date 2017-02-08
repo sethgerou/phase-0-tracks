@@ -5,23 +5,24 @@ module Shout
   end
 
   def happily(phrase)
-    puts "#{phrase}".downcase + ":)"
+    puts "#{phrase}".downcase + ":) did I say that out loud?"
   end
 end
 
-class Person
+class Person # a new class 'Person' which includes the module 'Shout'.
   include Shout
 end
 
-class Politician
+class Politician # a new class 'Politician' which includes the module 'Shout'.
   include Shout
 end
 
+# driver code
 person = Person.new
 person.angrily("I wish it would stop snowing")
 
 politician  = Politician.new
-politician.happily("I can't believe my constituents let me get away with all the crap I pull. ")
+politician.happily("I can't believe my constituents let me get away with this.  ")
 
 =begin - old Shout module code
 module Shout
