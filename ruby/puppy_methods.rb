@@ -1,28 +1,29 @@
+# a program that defines a puppy class and a gymnast class, with some example driver code.
 class Puppy # a puppy class with a few tricks
-    def initialize
-        puts "Initializing new puppy instance..."
-    end
+  def initialize
+    puts "Initializing new puppy instance..."
+  end
 
- def fetch(toy)
+  def fetch(toy)
     puts "I brought back the #{toy}!"
     toy
   end
 
- def speak(number)
-      number.times{ puts "Woof!"}
+  def speak(number)
+    number.times{ puts "Woof!"}
   end
 
   def roll_over
-          puts "*rolls over*"
+    puts "*rolls over*"
   end
 
-    def dog_years(years)
-     years * 7
-    end
+  def dog_years(years)
+    years * 7
+  end
 
-    def sit
-        puts "*Puppy sits*"
-    end
+  def sit
+    puts "*Puppy sits*"
+  end
 end
 
 class Gymnast # a gymnast class with a few tricks
