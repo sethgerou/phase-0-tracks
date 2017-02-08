@@ -1,6 +1,4 @@
-=begin
-class Puppy
-
+class Puppy # a puppy class with a few tricks
     def initialize
         puts "Initializing new puppy instance..."
     end
@@ -26,34 +24,41 @@ class Puppy
         puts "*Puppy sits*"
     end
 end
-=end
 
-class Gymnast
+class Gymnast # a gymnast class with a few tricks
   def initialize
     puts "Initialized an instance of Gymnast."
   end
 
   def jump(number)
-    puts "Gymnast jumps #{number} times."
+    "Gymnast jumps #{number} times."
   end
 
   def flip(direction)
-    puts "Gymnast does a #{direction}-flip."
+    "Gymnast does a #{direction}-flip."
   end
 
   def cartwheel
-    puts "Gymnast does a cartwheel."
+    "Gymnast does a cartwheel."
   end
 end
-=begin
+
+# puppy driver code
 fido = Puppy.new
 fido.fetch("ball")
 fido.speak(2)
 fido.roll_over
 puts fido.dog_years(3)
 fido.sit
-=end
 
-gymnasts = []
+gymnasts = [] # array to store gymnasts
 
-50.times {gymnasts.push(Gymnast.new)}
+# Gymnast driver code
+
+50.times {gymnasts.push(Gymnast.new)} # create 50 gymnast instances and store them the array "gymnasts"
+
+gymnasts.each do |n| # for each gymnast in the array, have them do a few tricks.
+  puts n.flip("front")
+  puts n.jump(4)
+  puts n.cartwheel
+end
