@@ -1,3 +1,4 @@
+=begin
 class Puppy
 
     def initialize
@@ -12,7 +13,7 @@ class Puppy
  def speak(number)
       number.times{ puts "Woof!"}
   end
-      
+
   def roll_over
           puts "*rolls over*"
   end
@@ -24,12 +25,35 @@ class Puppy
     def sit
         puts "*Puppy sits*"
     end
-
 end
+=end
 
+class Gymnast
+  def initialize
+    puts "Initialized an instance of Gymnast."
+  end
+
+  def jump(number)
+    puts "Gymnast jumps #{number} times."
+  end
+
+  def flip(direction)
+    puts "Gymnast does a #{direction}-flip."
+  end
+
+  def cartwheel
+    puts "Gymnast does a cartwheel."
+  end
+end
+=begin
 fido = Puppy.new
 fido.fetch("ball")
 fido.speak(2)
 fido.roll_over
 puts fido.dog_years(3)
 fido.sit
+=end
+
+gymnasts = []
+
+50.times {gymnasts.push(Gymnast.new)}
