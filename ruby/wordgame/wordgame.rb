@@ -1,5 +1,5 @@
 # word guessing game
-class Wordgame
+class Wordgame 
   def initialize
   end
 
