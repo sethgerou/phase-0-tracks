@@ -66,7 +66,8 @@ class Wordgame
   end
 
 end
-=begin # driver code
+
+# driver code
 puts "Player 1, enter a word for player 2 to guess."
 game = Wordgame.new(gets.chomp)
 # puts "\n"*80
@@ -85,4 +86,3 @@ loop do
     break puts game.end_message("win")
   end
 end
-=end
