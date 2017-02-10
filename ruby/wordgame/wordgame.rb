@@ -23,10 +23,7 @@ class Wordgame
         end
         index += 1
       end
-# ***************   still need code to account for multiple of the same letter.
-      true
     elsif @guessed.include?(letter) # if the letter has already been guessed.
-      true
     else
       count_minus
     end
@@ -69,7 +66,7 @@ class Wordgame
   end
 
 end
-
+=begin # driver code
 puts "Player 1, enter a word for player 2 to guess."
 game = Wordgame.new(gets.chomp)
 # puts "\n"*80
@@ -88,3 +85,4 @@ loop do
     break puts game.end_message("win")
   end
 end
+=end
