@@ -1,7 +1,5 @@
 # GPS2.2
 
-
-
 ## Method to create a list
 # input: string of items separated by spaces (example: "carrots apples cereal pizza")
 # steps:
@@ -20,8 +18,7 @@ end
 # steps: add item name => quanitity to hash
 # output: print list
 def add_item(list, item, quantity=1)
-  list[item] = quantity
-  print_list(list)
+  update_item_quantity(list, item, quantity)
 end
 
 # Method to remove an item from the list
