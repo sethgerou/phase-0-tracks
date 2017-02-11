@@ -6,7 +6,7 @@
   # create a hash
   # set default quantity (1)
   # print the list to the console - method to print the list
-# output: return the hash
+# output: print list
 def create_list(items)
   list = {}
   items.split(" ").each {|item| list[item] = 1}
@@ -54,3 +54,18 @@ grocery_list = create_list("cereal bread eggs milk")
 add_item(grocery_list, "yogurt", 7)
 remove_item(grocery_list, "eggs")
 update_item_quantity(grocery_list, "cereal", 3)
+
+=begin
+RELEASE 4 - REFLECTION
+
+- pseudocode - useful to think about input, output, and steps for each method. In a more complicated program, it's probalby useful to spend time pseudocoding each step to implement the desired functionality in a method.
+
+- tradeoffs - using a hash allows for the storing of a quantity for each item name.  implementing with an items array and a quanitites array, but it would be clunky.
+
+- a method returns the value of the last operation.  The program we wrote doesn't make use of the returns of the methods - because we call the print_list method at the end of most of them.
+
+- method arguements may be variables, values, or other methods (the return of the method is passed as an arguement to the called method)
+
+- information can be passed between methods via arguements - not sure I undertand the question beyond that.
+
+- I have a better sense of how to tackle pseudocoding listing out the inputs and outputs and to describe the steps needed to implement the functionality.  I'd like to maybe refactor the program to make use of each method's return value, or to redo the print method to be more versatile.
