@@ -137,7 +137,7 @@ When refactoring virus_effects, what stood out to you about the variables, if an
 a variable initialized within an each do iteration won't be available oustide the loop.  It either needs to be an instance @variable, or declared outside (before) the loop like variable = 0.
 
 What concept did you most solidify in this challenge?
-- Got a nice refresher in nested data structures.  
+- Got a nice refresher in nested data structures.
 - Also got a better sense of the utility of an instance variable.
-
+  
 =end
