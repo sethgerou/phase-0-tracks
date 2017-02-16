@@ -53,19 +53,20 @@ STEPS: intialize an empty array
 OUTPUT: returns an array of random words or random length
 */
 function generateWords(quantity) {
-  var words = []
-  for (i=0; i < quantity; i++) {
-    word = "";
-    alphabet = "abcdefghijklmnopqrstuvwxyz";
-    for (i=0; i < Math.random(10); i++){
-      word += alphabet.charAt(Math.random(25));
-    }
-    words.push(word);
-  }
-  return words;
-}
+  var words = []  // array to store generated words
 
-console.log(generateWords(10));
+  for (i=0; i < (quantity); i++) { // do this code quanitity times
+    var alphabet = "abcdefghijklmnopqrstuvwxyz";
+    var word = []; // stores the letters to make a word
+    length = Math.round((Math.random()*10)+1); // determines the length of the word
+      for (var n =0; n < length; n++) { // do this code (word) length times
+        var index = Math.round(Math.random()*26); // get a random number between 0 and 26
+        word.push(alphabet.charAt(index)); // add the character at index to the word array
+      }
+    words.push(word.join("")); // join the word and add it to the words array.
+    }
+  return words; // return the array
+}
 
 // findLongestString driver code
 var farmAry = ["cow", "buffalo", "dog", "billy goat",
@@ -74,6 +75,7 @@ var farmAry = ["cow", "buffalo", "dog", "billy goat",
 var numArray = ["23", "5", "200", "17", "200000", "58", "99"];
 var cats = ["Gilbert", "Tiger", "Mr. Fluffinstock", "Tim", "Gertrude"];
 
+console.log("\n\nFinding the longest string in 3 test arrays:")
 console.log(findLongestString(farmAry));
 console.log(findLongestString(numArray));
 console.log(findLongestString(cats));
@@ -97,5 +99,12 @@ var sonyPhone = {name: "Xperia x5r",
                  batteryCapacity: "3400mh"
 };
 
+console.log("\n\nComparing applePhone to samsungPhone, then applePhone to sonyPhone:")
 console.log(compareObjects(applePhone, samsungPhone));
 console.log(compareObjects(applePhone, sonyPhone));
+
+// generateWords driver code
+console.log("\n\nGenerating 10 five word arrays, and finding the longest word in each:")
+for (s = 0; s < 10; s++) {
+  console.log(findLongestString(generateWords(5)));
+}
