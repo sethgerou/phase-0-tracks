@@ -59,7 +59,7 @@ function generateWords(quantity) {
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var word = []; // stores the letters to make a word
     length = Math.round((Math.random()*10)+1); // determines the length of the word
-      for (var n =0; n < length; n++) { // do this code (word) length times
+      for (var n =1; n < length; n++) { // do this code (word) length times
         var index = Math.round(Math.random()*26); // get a random number between 0 and 26
         word.push(alphabet.charAt(index)); // add the character at index to the word array
       }
