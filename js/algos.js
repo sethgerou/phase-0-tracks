@@ -58,7 +58,7 @@ function generateWords(quantity) {
   for (i=0; i < (quantity); i++) { // do this code quanitity times
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var word = []; // stores the letters to make a word
-    length = Math.round((Math.random()*10)+1); // determines the length of the word
+    length = Math.ceil((Math.random()*10)+1); // determines the length of the word
       for (var n =1; n < length; n++) { // do this code (word) length times
         var index = Math.round(Math.random()*26); // get a random number between 0 and 26
         word.push(alphabet.charAt(index)); // add the character at index to the word array
@@ -104,7 +104,8 @@ console.log(compareObjects(applePhone, samsungPhone));
 console.log(compareObjects(applePhone, sonyPhone));
 
 // generateWords driver code
-console.log("\n\nGenerating 10 five word arrays, and finding the longest word in each:")
+console.log("\n\nGenerating 10 five word arrays, and finding the longest word in each:\n")
 for (s = 0; s < 10; s++) {
-  console.log(findLongestString(generateWords(5)));
+  console.log("Array " + (s+1) + ": " + (strings = generateWords(5)));
+  console.log(longest = findLongestString(strings) + "\n");
 }
