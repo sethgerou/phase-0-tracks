@@ -1,0 +1,44 @@
+sqlite> SELECT * FROM movies;
+1|Casino Royale|1|2006|9|false
+2|Super 8|2|2011|7|true
+3|WALL-E|7|2008|8|true
+4|Finding Nemo|3|2003|8|true
+5|Raiders of the Lost Ark|4|1981|7|false
+6|Saving Private Ryan|4|1998|6|false
+7|Schindler's List|4|1993|5|false
+8|Dreams|5|1990|4|false
+9|Seven Samurai|5|1954|2|false
+10|Ran|5|1985|3|false
+11|Frozen|6|2013|1|false
+
+sqlite> UPDATE movies SET kid_friendly="false" WHERE title="Super 8";
+
+sqlite> SELECT * FROM movies, directors, studios WHERE movies.director_id = directors.id AND movies.studio_id = studios.id;
+1|Casino Royale|1|2006|9|false|1|Martin Campbell|9|Columbia Pictures
+2|Super 8|2|2011|7|false|2|JJ Abrams|7|Paramount Pictures
+3|WALL-E|7|2008|8|true|7|Andrew Stanton|8|Pixar Animation Studios
+4|Finding Nemo|3|2003|8|true|3|Andrew Stanton|8|Pixar Animation Studios
+5|Raiders of the Lost Ark|4|1981|7|false|4|Steven Spielberg|7|Paramount Pictures
+6|Saving Private Ryan|4|1998|6|false|4|Steven Spielberg|6|DreamWorks
+7|Schindler's List|4|1993|5|false|4|Steven Spielberg|5|Universal Pictures
+8|Dreams|5|1990|4|false|5|Akira Kurosawa|4|Warner Bros.
+9|Seven Samurai|5|1954|2|false|5|Akira Kurosawa|2|Toho Company
+10|Ran|5|1985|3|false|5|Akira Kurosawa|3|Greenwich Film Productions
+11|Frozen|6|2013|1|false|6|Chris buck and Jennifer Lee|1|Walt Disney Animation Studios
+
+sqlite> SELECT movies.title, directors.director, studios.studio FROM movies
+   ...> JOIN directors ON movies.director_id = directors.id
+   ...> JOIN studios ON movies.studio_id = studios.id;
+Casino Royale|Martin Campbell|Columbia Pictures
+Super 8|JJ Abrams|Paramount Pictures
+WALL-E|Andrew Stanton|Pixar Animation Studios
+Finding Nemo|Andrew Stanton|Pixar Animation Studios
+Raiders of the Lost Ark|Steven Spielberg|Paramount Pictures
+Saving Private Ryan|Steven Spielberg|DreamWorks
+Schindler's List|Steven Spielberg|Universal Pictures
+Dreams|Akira Kurosawa|Warner Bros.
+Seven Samurai|Akira Kurosawa|Toho Company
+Ran|Akira Kurosawa|Greenwich Film Productions
+Frozen|Chris buck and Jennifer Lee|Walt Disney Animation Studios
+
+sqlite> DELETE FROM movies WHERE title="Ran";
