@@ -38,8 +38,9 @@ db.execute(create_notes_table_cmd)
 
 # methods to add/modify database content
 def add_crop(db, crop, bed_number)
+  occurence = "plant"
   db.execute("INSERT INTO crops (crop, bed_number) values (?, ?)", [crop, bed_number])
-  plant_crop(db, crop)
+  log(db, occurence, crop)
 end
 
 def add_note(db, crop, note)
@@ -49,31 +50,33 @@ def add_note(db, crop, note)
     new_note_id = db.execute("SELECT notes.id FROM notes WHERE note1=(?)", [note])
     db.execute("UPDATE crops SET notes_id=(?) WHERE crop=(?)", [new_note_id[0][0], crop])
   else
-    puts "false"
+    notes = db.execute("SELECT * FROM notes WHERE id=(?)", [notes_id[0]["notes_id"]])
+    if notes[0]["note2"] == nil
+      db.execute("UPDATE notes SET note2=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
+    elsif notes[0]["note3"] == nil
+      db.execute("UPDATE notes SET note3=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
+    elsif notes[0]["note4"] == nil
+      db.execute("UPDATE notes SET note4=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
+    elsif notes[0]["note5"] == nil
+      db.execute("UPDATE notes SET note5=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
+    else
+      return false
+    end
   end
-
-  p notes_id.class
-  p notes_id
-  p notes_id[0]["notes_id"]
 end
 
-def plant_crop(db, crop)
-  db.execute("UPDATE crops SET date_planted=(CURRENT_DATE) where crop=(?)", [crop])
+def log(db, occurence, crop)
+  if occurence == "plant"
+    db.execute("UPDATE crops SET date_planted=(CURRENT_DATE) WHERE crop=(?)", [crop])
+  elsif occurence == "germinate"
+    db.execute("UPDATE crops SET date_germinated=(CURRENT_DATE) WHERE crop=(?)", [crop])
+  elsif occurence == "harvest"
+    db.execute("UPDATE crops SET date_harvested=(CURRENT_DATE) WHERE crop=(?)", [crop])
+  else
+    db.execute("UPDATE crops SET date_failed=(CURRENT_DATE) WHERE crop=(?)", [crop])
+  end
 end
-
-def germinate_crop(db, crop)
-  db.execute("UPDATE crops SET date_germinated=(CURRENT_DATE) where crop=(?)", [crop])
-end
-
-def harvest_crop(db, crop)
-  db.execute("UPDATE crops SET date_harvested=(CURRENT_DATE) where crop=(?)", [crop])
-end
-
-def fail_crop(db, crop)
-  db.execute("UPDATE crops SET date_failed=(CURRENT_DATE) where crop=(?)", [crop])
-end
-
-=begin
+=begin - test code
 add_crop(db, "Broccoli", 6)
 add_crop(db, "Spinach", 2)
 add_crop(db, "Romaine Lettuce", 3)
@@ -84,12 +87,15 @@ add_crop(db, "Cucumber", 1)
 add_crop(db, "Carrots", 5)
 add_crop(db, "Onions", 5)
 add_crop(db, "Garlic", 6)
-germinate_crop(db, "Garlic")
-harvest_crop(db, "Carrots")
-fail_crop(db, "Radishes")
+
+log(db, "germinate", "Garlic")
+log(db, "harvest", "Carrots")
+log(db, "fail", "Radishes")
 =end
-# add_note(db, "Garlic", "Garlic needs more water")
-# add_note(db, "Carrots", "Carrots are orange like President Trump.")
+
+add_note(db, "Garlic", "Garlic needs more water")
+add_note(db, "Carrots", "Carrots are orange like President Trump.")
+
 
 # methods to display database content
 
