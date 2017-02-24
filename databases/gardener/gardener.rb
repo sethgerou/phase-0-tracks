@@ -29,7 +29,12 @@ create_notes_table_cmd = <<-SQL
     note2 varchar(255),
     note3 varchar(255),
     note4 varchar(255),
-    note5 varchar(255)
+    note5 varchar(255),
+    note6 varchar(255),
+    note7 varchar(255),
+    note8 varchar(255),
+    note9 varchar(255),
+    note10 varchar(255)
   )
 SQL
 
@@ -44,24 +49,34 @@ def add_crop(db, crop, bed_number)
 end
 
 def add_note(db, crop, note)
-  notes_id = db.execute("SELECT crops.notes_id FROM crops WHERE crop=(?)", [crop]) #are there existing notes for this crop?
-  if notes_id[0]["notes_id"] == nil
+  id = db.execute("SELECT crops.notes_id FROM crops WHERE crop=(?)", [crop]) #are there existing notes for this crop?
+
+  if id[0]["notes_id"] == nil
     db.execute("INSERT into notes (note1) values (?)", [note])
     new_note_id = db.execute("SELECT notes.id FROM notes WHERE note1=(?)", [note])
     db.execute("UPDATE crops SET notes_id=(?) WHERE crop=(?)", [new_note_id[0][0], crop])
   else
-    notes = db.execute("SELECT * FROM notes WHERE id=(?)", [notes_id[0]["notes_id"]])
+    notes = db.execute("SELECT * FROM notes WHERE id=(?)", [id[0]["notes_id"]])
     if notes[0]["note2"] == nil
-      db.execute("UPDATE notes SET note2=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note2=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
     elsif notes[0]["note3"] == nil
-      db.execute("UPDATE notes SET note3=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note3=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
     elsif notes[0]["note4"] == nil
-      db.execute("UPDATE notes SET note4=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note4=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
     elsif notes[0]["note5"] == nil
-      db.execute("UPDATE notes SET note5=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note5=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+    elsif notes[0]["note6"] == nil
+      db.execute("UPDATE notes SET note6=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+    elsif notes[0]["note7"] == nil
+      db.execute("UPDATE notes SET note7=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+    elsif notes[0]["note8"] == nil
+      db.execute("UPDATE notes SET note8=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+    elsif notes[0]["note9"] == nil
+      db.execute("UPDATE notes SET note9=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+    elsif notes[0]["note10"] == nil
+      db.execute("UPDATE notes SET note10=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
     else
-      db.execute("ALTER TABLE notes ADD #{} varchar(255)")
-      db.execute("UPDATE notes SET #{}=(?), [note]")
+      return false
     end
   end
 end
@@ -77,7 +92,8 @@ def log(db, occurence, crop)
     db.execute("UPDATE crops SET date_failed=(CURRENT_DATE) WHERE crop=(?)", [crop])
   end
 end
-=begin - test code
+# test code
+=begin
 add_crop(db, "Broccoli", 6)
 add_crop(db, "Spinach", 2)
 add_crop(db, "Romaine Lettuce", 3)
