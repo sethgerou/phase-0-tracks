@@ -60,7 +60,8 @@ def add_note(db, crop, note)
     elsif notes[0]["note5"] == nil
       db.execute("UPDATE notes SET note5=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     else
-      return false
+      db.execute("ALTER TABLE notes ADD #{} varchar(255)")
+      db.execute("UPDATE notes SET #{}=(?), [note]")
     end
   end
 end
