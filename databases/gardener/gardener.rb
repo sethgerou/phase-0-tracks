@@ -92,6 +92,7 @@ def log(db, occurence, crop)
     db.execute("UPDATE crops SET date_failed=(CURRENT_DATE) WHERE crop=(?)", [crop])
   end
 end
+
 # test code
 =begin
 add_crop(db, "Broccoli", 6)
@@ -108,12 +109,17 @@ add_crop(db, "Garlic", 6)
 log(db, "germinate", "Garlic")
 log(db, "harvest", "Carrots")
 log(db, "fail", "Radishes")
+
+add_note(db, "Cucumber", "Cool as a cucumber")
+add_note(db, "Artichoke", "Don't choke.")
 =end
 
-add_note(db, "Garlic", "Garlic needs more water")
-add_note(db, "Carrots", "Carrots are orange like President Trump.")
-
-
 # methods to display database content
+
+# display crops, sorted by bed, listing status
+# display crops, sorted by status
+# display crops: notes
+# display crops: time to harvest
+# display crops: time to germination
 
 # get user input
