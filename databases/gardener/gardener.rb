@@ -94,28 +94,6 @@ def log(db, occurence, crop)
   end
 end
 
-# first run test code
-=begin
-add_crop(db, "Broccoli", 6)
-add_crop(db, "Spinach", 2)
-add_crop(db, "Romaine Lettuce", 3)
-add_crop(db, "New Potatoes", 2)
-add_crop(db, "Radishes", 3)
-add_crop(db, "Artichoke", 2)
-add_crop(db, "Cucumber", 1)
-add_crop(db, "Carrots", 5)
-add_crop(db, "Onions", 5)
-add_crop(db, "Garlic", 6)
-
-log(db, "germinate", "Garlic")
-log(db, "harvest", "Carrots")
-log(db, "fail", "Radishes")
-log(db, "germinate", "Radishes")
-
-add_note(db, "Cucumber", "Cool as a cucumber")
-add_note(db, "Artichoke", "Don't choke.")
-=end
-
 # methods to display database content
 
 # display crops, sorted by bed, listing status
