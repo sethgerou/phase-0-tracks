@@ -122,6 +122,7 @@ add_note(db, "Artichoke", "Don't choke.")
 def display_crops_by_bed(db)
   beds = []
   crops_beds = db.execute("SELECT crops.bed_number, crops.crop FROM crops")
+  puts "Displaying crops by bed...\n\n"
   crops_beds.each do |crop|
     beds.push("#{crop["bed_number"]}: #{crop["crop"]}")
   end
@@ -133,16 +134,16 @@ def display_crops_by_status(db)
   status = []
   crops_status = db.execute("SELECT crops.crop, crops.date_planted, crops.date_germinated,
   crops.date_harvested, crops.date_failed FROM crops")
+  puts "Displaying crops by status...\n\n"
   crops_status.each do |crop|
-    # puts "\n\nThis is the value of crop: #{crop}\n\n"
     if crop["date_failed"] != nil
-      status.push("4) FAILED: #{crop["crop"]} failed on #{crop["date_failed"]}")
+      status.push("4) FAILED: #{crop["crop"]} failed on #{Time.parse(crop["date_failed"]).to_date}")
     elsif crop["date_harvested"] != nil
-      status.push("3) HARVESTED: #{crop["crop"]} was harvested on #{crop["date_harvested"]}")
+      status.push("3) HARVESTED: #{crop["crop"]} harvested on #{Time.parse(crop["date_harvested"]).to_date}")
     elsif crop["date_germinated"] != nil
-      status.push("2) GERMINATED: #{crop["crop"]} germinated on #{crop["date_germinated"]}")
+      status.push("2) GERMINATED: #{crop["crop"]} germinated on #{Time.parse(crop["date_germinated"]).to_date}")
     else
-      status.push("1) PLANTED: #{crop["crop"]} was planted on #{crop["date_planted"]}")
+      status.push("1) PLANTED: #{crop["crop"]} planted on #{Time.parse(crop["date_planted"]).to_date}")
     end
   end
   status.sort.each {|crop| puts "#{crop}"}
@@ -195,11 +196,11 @@ system("clear") or system("cls")
 puts "Welcome to Gardener - a garden tracking tool.\n\n"
 input = ""
 while input != "e"
-  puts "What would you like to do?"
+  puts "\nWhat would you like to do?\n\n"
   puts "(1)-plant a crop. (2)-log a crop status. (3)-add a crop note."
   puts "(4)-view garden by bed. (5)-view garden by status."
   puts "(6)-display harvest times. (7)- display germination times."
-  puts "(e)-exit."
+  puts "(8)-display notes for a crop. (e)-exit."
   input = gets.chomp
   if input == "1"
     puts "What crop did you plant?"
@@ -209,7 +210,7 @@ while input != "e"
     add_crop(db, crop, bed_number)
   elsif input == "2"
     system("clear") or system("cls")
-    garden = db.execute("SELECT crops.id, crops.crop")
+    garden = db.execute("SELECT crops.id, crops.crop FROM crops")
     garden.each {|crop| puts "(#{crop["id"]})- #{crop["crop"]}"}
     puts "Which crop would you like to update?"
     id = gets.chomp
@@ -220,13 +221,13 @@ while input != "e"
     until event_id == "1" or event_id =="2" or event_id=="3"
       event_id = gets.chomp
       if event_id == "1"
-        log(db, "germinate", crop)
+        log(db, "germinate", crop[0]["crop"])
         break
       elsif event_id == "2"
-        log(db, "harvest", crop)
+        log(db, "harvest", crop[0]["crop"])
         break
       elsif event_id == "3"
-        log(db, "fail", crop)
+        log(db, "fail", crop[0]["crop"])
         break
       else
         puts "I didn't understand your choice, please enter 1,2,or 3"
@@ -235,14 +236,14 @@ while input != "e"
     end
   elsif input == "3"
     system("clear") or system("cls")
-    garden = db.execute("SELECT crops.id, crops.crop")
+    garden = db.execute("SELECT crops.id, crops.crop FROM crops")
     garden.each {|crop| puts "(#{crop["id"]})- #{crop["crop"]}"}
     puts "Which crop would you like to add a note to?"
     id = gets.chomp
     crop = db.execute("SELECT crops.crop from crops where id=(?)", [id])
     puts "Please enter your note on a single line - 255 characters max."
     note = gets.chomp
-    add_note(db, crop, note)
+    add_note(db, crop[0]["crop"], note)
   elsif input == "4"
     system("clear") or system("cls")
     display_crops_by_bed(db)
@@ -255,6 +256,16 @@ while input != "e"
   elsif input == "7"
     system("clear") or system("cls")
     display_time_to_germinate(db)
+  elsif input == "8"
+    system("clear") or system("cls")
+    garden = db.execute("SELECT crops.id, crops.crop FROM crops")
+    garden.each {|crop| puts "(#{crop["id"]})- #{crop["crop"]}"}
+    puts "What crop would you like to get notes for?"
+    id = gets.chomp
+    crop = db.execute("SELECT crops.crop from crops where id=(?)", [id])
+    display_crop_with_notes(db, crop[0]["crop"])
+  elsif input == "e"
+    break
   else
     puts "Sorry, I didn't understand your choice. Please try again."
   end
