@@ -5,7 +5,6 @@ require 'time'
 
 # create database
 db = SQLite3::Database.new("gardener.db")
-# use tbd
 db.results_as_hash = true
 
 # create tables
@@ -95,7 +94,6 @@ def log(db, occurence, crop)
 end
 
 # methods to display database content
-
 # display crops, sorted by bed, listing status
 def display_crops_by_bed(db)
   beds = []
@@ -221,7 +219,9 @@ while input != "e"
     crop = db.execute("SELECT crops.crop from crops where id=(?)", [id])
     puts "Please enter your note on a single line - 255 characters max."
     note = gets.chomp
-    add_note(db, crop[0]["crop"], note)
+    if (add_note(db, crop[0]["crop"], note)) == false
+      puts "Sorry, all 10 note slots are full for that crop."
+    end
   elsif input == "4"
     system("clear") or system("cls")
     display_crops_by_bed(db)
