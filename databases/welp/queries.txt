@@ -1,0 +1,24 @@
+2.
+
+sqlite> select * from reviews, businesses, users
+   ...> where reviews.business_id=businesses.id and reviews.user_id=users.id;
+5|Great gas|1|1|1|Chevron|1|Seth|Gerou
+3|The fries were cold|2|2|2|McDonald's|2|Kristen|Boffi
+1|Man those are some smelly candles|3|3|3|Yankee Candle Company|3|Margaret Jane|Gerou
+
+3.
+
+sqlite> select users.first_name, users.last_name, businesses.name, reviews.stars, reviews.comment from reviews
+   ...> join businesses ON reviews.business_id=businesses.id
+   ...> join users ON reviews.user_id=users.id;
+Seth|Gerou|Chevron|5|Great gas
+Kristen|Boffi|McDonald's|3|The fries were cold
+Margaret Jane|Gerou|Yankee Candle Company|1|Man those are some smelly candles
+
+4.
+
+sqlite> SELECT * FROM reviews
+    ...> JOIN businesses ON reviews.business_id=businesses.id
+    ...> JOIN users ON reviews.user_id=users.id
+    ...> WHERE businesses.name="Chevron";
+5|Great gas|1|1|1|Chevron|1|Seth|Gerou sqlite> 
