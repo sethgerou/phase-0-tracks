@@ -45,51 +45,53 @@ db.execute(create_notes_table_cmd)
 def add_crop(db, crop, bed_number)
   occurence = "plant"
   db.execute("INSERT INTO crops (crop, bed_number) values (?, ?)", [crop, bed_number])
-  log(db, occurence, crop)
+  id_n = db.execute("SELECT crops.id FROM crops WHERE crop=(?)", [crop])
+  id = id_n[0]["id"]
+  log(db, occurence, id)
 end
 
-def add_note(db, crop, note)
-  id = db.execute("SELECT crops.notes_id FROM crops WHERE crop=(?)", [crop]) #are there existing notes for this crop?
+def add_note(db, id, note)
+  notes_id = db.execute("SELECT crops.notes_id FROM crops WHERE id=(?)", [id]) #are there existing notes for this crop?
 
-  if id[0]["notes_id"] == nil
+  if notes_id[0]["notes_id"] == nil
     db.execute("INSERT into notes (note1) values (?)", [note])
     new_note_id = db.execute("SELECT notes.id FROM notes WHERE note1=(?)", [note])
-    db.execute("UPDATE crops SET notes_id=(?) WHERE crop=(?)", [new_note_id[0][0], crop])
+    db.execute("UPDATE crops SET notes_id=(?) WHERE id=(?)", [new_note_id[0][0], id])
   else
-    notes = db.execute("SELECT * FROM notes WHERE id=(?)", [id[0]["notes_id"]])
+    notes = db.execute("SELECT * FROM notes WHERE id=(?)", [notes_id[0]["notes_id"]])
     if notes[0]["note2"] == nil
-      db.execute("UPDATE notes SET note2=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note2=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     elsif notes[0]["note3"] == nil
-      db.execute("UPDATE notes SET note3=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note3=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     elsif notes[0]["note4"] == nil
-      db.execute("UPDATE notes SET note4=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note4=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     elsif notes[0]["note5"] == nil
-      db.execute("UPDATE notes SET note5=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note5=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     elsif notes[0]["note6"] == nil
-      db.execute("UPDATE notes SET note6=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note6=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     elsif notes[0]["note7"] == nil
-      db.execute("UPDATE notes SET note7=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note7=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     elsif notes[0]["note8"] == nil
-      db.execute("UPDATE notes SET note8=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note8=(?) WHERE id=(?)", [note, notes_idid[0]["notes_id"]])
     elsif notes[0]["note9"] == nil
-      db.execute("UPDATE notes SET note9=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note9=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     elsif notes[0]["note10"] == nil
-      db.execute("UPDATE notes SET note10=(?) WHERE id=(?)", [note, id[0]["notes_id"]])
+      db.execute("UPDATE notes SET note10=(?) WHERE id=(?)", [note, notes_id[0]["notes_id"]])
     else
       return false
     end
   end
 end
 
-def log(db, occurence, crop)
+def log(db, occurence, id)
   if occurence == "plant"
-    db.execute("UPDATE crops SET date_planted=(CURRENT_TIMESTAMP) WHERE crop=(?)", [crop])
+    db.execute("UPDATE crops SET date_planted=(CURRENT_TIMESTAMP) WHERE id=(?)", [id])
   elsif occurence == "germinate"
-    db.execute("UPDATE crops SET date_germinated=(CURRENT_TIMESTAMP) WHERE crop=(?)", [crop])
+    db.execute("UPDATE crops SET date_germinated=(CURRENT_TIMESTAMP) WHERE id=(?)", [id])
   elsif occurence == "harvest"
-    db.execute("UPDATE crops SET date_harvested=(CURRENT_TIMESTAMP) WHERE crop=(?)", [crop])
+    db.execute("UPDATE crops SET date_harvested=(CURRENT_TIMESTAMP) WHERE id=(?)", [id])
   else
-    db.execute("UPDATE crops SET date_failed=(CURRENT_TIMESTAMP) WHERE crop=(?)", [crop])
+    db.execute("UPDATE crops SET date_failed=(CURRENT_TIMESTAMP) WHERE id=(?)", [id])
   end
 end
 
@@ -126,14 +128,14 @@ def display_crops_by_status(db)
 end
 
 # display crops: notes
-def display_crop_with_notes(db, crop_select)
-  crops_notes = db.execute("SELECT crops.crop, notes.note1, notes.note2, notes.note3,
+def display_crop_with_notes(db, crops_id)
+  crops_notes = db.execute("SELECT crops.crop, crops.id, notes.note1, notes.note2, notes.note3,
                             notes.note4, notes.note5, notes.note6, notes.note7,
                             notes.note8, notes.note9, notes.note10 FROM crops
                             INNER JOIN notes ON notes_id = notes.id")
 
   crops_notes.each do |crop|
-        if crop["crop"] == crop_select
+        if crop["id"] == crops_id.to_i
             puts "\n#{crop["crop"]}:\n\n#{crop["note1"]}\n#{crop["note2"]}\n#{crop["note3"]}\n#{crop["note4"]}\n#{crop["note5"]}\n#{crop["note6"]}\n#{crop["note7"]}\n#{crop["note8"]}\n#{crop["note9"]}\n#{crop["note10"]}"
         end
     end
@@ -190,20 +192,19 @@ while input != "e"
     garden.each {|crop| puts "(#{crop["id"]})- #{crop["crop"]}"}
     puts "Which crop would you like to update?"
     id = gets.chomp
-    crop = db.execute("SELECT crops.crop from crops where id=(?)", [id])
     puts "What event would you like to log?"
     puts "(1)- Germinate. (2)-Harvest. (3)Fail."
     event_id = ""
     until event_id == "1" or event_id =="2" or event_id=="3"
       event_id = gets.chomp
       if event_id == "1"
-        log(db, "germinate", crop[0]["crop"])
+        log(db, "germinate", id)
         break
       elsif event_id == "2"
-        log(db, "harvest", crop[0]["crop"])
+        log(db, "harvest", id)
         break
       elsif event_id == "3"
-        log(db, "fail", crop[0]["crop"])
+        log(db, "fail", id)
         break
       else
         puts "I didn't understand your choice, please enter 1,2,or 3"
@@ -216,10 +217,9 @@ while input != "e"
     garden.each {|crop| puts "(#{crop["id"]})- #{crop["crop"]}"}
     puts "Which crop would you like to add a note to?"
     id = gets.chomp
-    crop = db.execute("SELECT crops.crop from crops where id=(?)", [id])
     puts "Please enter your note on a single line - 255 characters max."
     note = gets.chomp
-    if (add_note(db, crop[0]["crop"], note)) == false
+    if (add_note(db, id, note)) == false
       puts "Sorry, all 10 note slots are full for that crop."
     end
   elsif input == "4"
@@ -240,8 +240,7 @@ while input != "e"
     garden.each {|crop| puts "(#{crop["id"]})- #{crop["crop"]}"}
     puts "What crop would you like to get notes for?"
     id = gets.chomp
-    crop = db.execute("SELECT crops.crop from crops where id=(?)", [id])
-    display_crop_with_notes(db, crop[0]["crop"])
+    display_crop_with_notes(db, id)
   elsif input == "e"
     break
   else
