@@ -1,0 +1,41 @@
+* {font-family: sans-serif;
+  }
+
+body {
+  margin: 5px;
+}
+
+header {
+  border: 5px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+h1, h2, h3, h4 {
+
+}
+
+.column-1 {
+  max-width: 40%;
+  display: inline-block;
+  vertical-align: top;
+  background-color: #bdc3c7;
+  padding: 2%;
+  border: 3px solid black;
+  margin: 2%;
+}
+
+.column-2 {
+  max-width: 40%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 2%;
+  border: 3px solid black;
+  margin: 2%;
+}
+
+footer {
+  border: 2px solid black;
+  margin: 1%;
+  padding: 5px;
+}
