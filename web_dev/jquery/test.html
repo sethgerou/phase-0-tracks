@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#flip").click(function(){
+    $("#panel").slideToggle("slow");
+  });
+});
+
+$(document).ready(function(){
+  $("p").mouseenter(function(){
+    $("p").css("border", "3px solid black");
+  });
+});
+
+$(document).ready(function(){
+  $("p").mouseleave(function(){
+    $("p").css("border", "none");
+  });
+});
+
+$(document).ready(function(){
+  $("p").dblclick(function(){
+    $("p").fadeOut(1000);
+  });
+});
+
+$(document).ready(function(){
+  $("p").click(function(){
+    $("string").clone().appendTo("p");
+  });
+});
+
+</script>
+
+<style>
+#panel, #flip {
+  padding: 5px;
+  text-align: center;
+  background-color: #e5eecc;
+  border: 1px solid gray;
+}
+
+#panel {
+  padding: 50px;
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<div id="flip">Click to slide down panel</div>
+<div id="panel">Hello world!</div>
+
+<p>Some plain old text (double click to hide)</p>
+<string>some h4 text</string>
+
+</body>
+</html>

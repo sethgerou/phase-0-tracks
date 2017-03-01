@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>test2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+
+  <body>
+    <h1 style="font-size:.5em;">this is an h1 heading</h1>
+    <p>this is a paragraph</p>
+    <script>
+    $(document).ready(function(){
+      $("p").hover(function(){
+        $("p").css("border", "10px solid red");
+      });
+    });
+
+      $(document).ready(function(){
+        $("h1").click(function(){
+          $("h1").animate({
+            fontSize: "3em",
+            opacity: .3,
+
+          }, 500 );
+        });
+      });
+
+      $(document).ready(function(){
+        $("h1").mouseup(function(){
+          $("h1").css("border", "none");
+        });
+      });
+
+        $(document).ready(function(){
+          $("p").mouseup(function(){
+            $("p").css("border", "none");
+          });
+        });
+
+    </script>
+  </body>
+</html>
